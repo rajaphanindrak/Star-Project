@@ -21,7 +21,9 @@ module.exports = {
     },
     output: {
         filename: (chunkData) => {
-            return chunkData.chunk.name === 'dependencies' ? 'clientlib-dependencies/[name].js' : 'clientlib-site/[name].js';
+            return chunkData.chunk.name === 'dependencies'
+                ? 'clientlib-dependencies/[name].js'
+                : 'clientlib-site/[name].js';
         },
         path: path.resolve(__dirname, 'dist')
     },
