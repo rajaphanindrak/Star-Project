@@ -23,4 +23,12 @@ module.exports =  {
         "semi": 1,
         "no-var": 0
     },
+    overrides: [
+        {
+            files: ['webpack*.js', 'clientlib.config.js'],
+            rules: {
+                '@typescript-eslint/no-var-requires': 'off'
+            }
+        }
+    ],
   };
