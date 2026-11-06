@@ -19,9 +19,9 @@
        text-transform: uppercase;
           
        &:before {
-         @include wkndiconstyle();
+         @include stariconstyle();
          font-size: 1em;
-         content: $wkndicon-play3;
+         content: $staricon-play3;
          color: $brand-primary;
          padding-right: 5px;
        }
