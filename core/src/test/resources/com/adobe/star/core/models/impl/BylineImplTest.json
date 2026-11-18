@@ -1,0 +1,22 @@
+{
+  "byline": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "star/components/Byline",
+    "name": "Jane Doe",
+    "occupations": ["Photographer","Blogger","Youtuber"]
+  },
+  "empty": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "star/components/Byline"
+  },
+  "without-name": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "star/components/Byline",
+    "occupations": ["Photographer","Blogger","Youtuber"]
+  },
+  "without-occupations": {
+    "jcr:primaryType": "nt:unstructured",
+    "sling:resourceType": "star/components/Byline",
+    "name": "Jane Doe"
+  }
+}
