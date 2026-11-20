@@ -1,0 +1,11 @@
+<div data-emptytext="Author Component" class="cq-placeholder"></div>
+<div data-sly-use.model="${'com.adobe.star.core.models.Author' @ rAttribute='TestAttribute'}">
+    <h1>Author Bio</h1>
+    <div>First Name :${model.firstName}</div>
+    <div>Last Name :${model.lastName}</div>
+    <div>Is a Professor :${model.isProfessor}</div>
+    <div>Page title:${model.pageTitle}</div>
+    <div>Request Attribute:${model.requestAttribute}</div>
+    <div>Resource Path:${model.pageName}</div>
+    <div>Last Modified by:${model.modifiedBy}</div>
+</div>
