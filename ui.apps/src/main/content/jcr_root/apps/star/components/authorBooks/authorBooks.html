@@ -1,0 +1,37 @@
+<div data-emptyText="Author Books Component" class="cq-paceholder"></div>
+<div data-sly-use.model="com.adobe.star.core.models.AuthorBooks">
+    <div>Author Name: ${model.authorName}</div>
+    <div data-sly-test="${model.books}">
+        <div data-sly-list.items = ${model.books}>
+            <p>Book ${itemsList.count} :<b> ${items}</b></p>
+        </div>
+        <p>All books: <b>${model.books @ join=', '}</b></p>
+    </div>
+    <div data-sly-test="${model.bookDetails}">
+        <div data-sly-list.items="${model.bookDetails}">
+            <p>-----------------Book : ${itemsList.count} ---------------</p>
+            <p>Book Name : ${items.bookName}</p>
+            <p>Book Subject : ${items.bookSubject}</p>
+            <p>Published Year: ${items.publishedYear}</p>
+        </div>
+    </div>
+    <div data-sly-test="${model.publishingDetails}">
+        <div data-sly-list.items="${model.publishingDetails}">
+            <p>------------------ Book : ${itemsList.count}---------------</p>
+            <p>Book Published Date: ${items.formattedPublishDate}</p>
+            <p>No. of copies: ${items.copies}</p>
+        </div>
+    </div>
+    <div data-sly-test="${model.bookHistory}">
+        <div data-sly-list.items="${model.bookHistory}">
+            <div>--------------- Book ${itemsList.count}----------------------</div>
+            <div>Book Name: ${items.bookName}</div>
+            <div>Published Year: ${items.formatedDatePublished}</div>
+            <div data-sly-list.nesteditems="${items.bookEditions}">
+                <div>Year : ${nesteditems.year}</div>
+                <div>Copies : ${nesteditems.copies}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
