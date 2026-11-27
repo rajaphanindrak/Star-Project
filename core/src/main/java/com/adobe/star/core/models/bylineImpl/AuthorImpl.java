@@ -15,7 +15,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 @Model(adaptables ={SlingHttpServletRequest.class},
         adapters = Author.class,
         resourceType = AuthorImpl.RESOURCE_TYPE,

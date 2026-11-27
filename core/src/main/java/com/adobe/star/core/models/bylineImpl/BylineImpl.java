@@ -3,6 +3,7 @@ package com.adobe.star.core.models.bylineImpl;
 import com.adobe.star.core.models.Byline;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
+import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
@@ -12,6 +13,9 @@ import com.adobe.cq.wcm.core.components.models.Image;
 import org.apache.sling.models.factory.ModelFactory;
 
 import javax.annotation.PostConstruct;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +24,8 @@ import java.util.List;
         adapters = Byline.class,
         resourceType = BylineImpl.RESOURCE_TYPE,
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Exporter(name="XMLExporter", selector="custom", extensions="xml")
+@XmlRootElement(name="Byline-Details")
 public class BylineImpl implements Byline {
 
     protected static final String RESOURCE_TYPE = "star/components/Byline";
@@ -45,11 +51,13 @@ public class BylineImpl implements Byline {
                 Image.class);
     }
 
+    @XmlElement(name="Author-Name")
     @Override
     public String getName() {
         return name;
     }
 
+    @XmlElementWrapper(name="Author-Occupations")
     @Override
     public List<String> getOccupations() {
         if(occupations != null) {
@@ -59,6 +67,7 @@ public class BylineImpl implements Byline {
             return Collections.emptyList();
         }
     }
+
 
     @Override
     public boolean isEmpty()
