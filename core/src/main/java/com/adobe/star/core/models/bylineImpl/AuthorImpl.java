@@ -2,12 +2,11 @@ package com.adobe.star.core.models.bylineImpl;
 
 import com.adobe.star.core.models.Author;
 import com.day.cq.wcm.api.Page;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.models.annotations.Default;
-import org.apache.sling.models.annotations.DefaultInjectionStrategy;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Via;
+import org.apache.sling.models.annotations.*;
 import org.apache.sling.models.annotations.injectorspecific.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,12 +15,20 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 @Model(adaptables ={SlingHttpServletRequest.class},
         adapters = Author.class,
+        resourceType = AuthorImpl.RESOURCE_TYPE,
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+
+@Exporter(name="jackson", extensions="json", selector="geeks",
+            options={ @ExporterOption(name="SerializationFeature.WRAP_ROOT_VALUE", value="true"),
+                        @ExporterOption(name="MapperFeature.SORT_PROPERTIES_ALPHABETICALLY", value="true")
+            })
+
+@JsonRootName("Author Details")
 public class AuthorImpl implements Author {
 
+    public static final String RESOURCE_TYPE = "star/components/author";
     private final static Logger LOG = LoggerFactory.getLogger(AuthorImpl.class);
 
     @Inject
@@ -71,6 +78,7 @@ public class AuthorImpl implements Author {
         return currentPage.getTitle();
     }
 
+    @JsonIgnore
     @Override
     public String getRequestAttribute() {
         return reqAttribute;

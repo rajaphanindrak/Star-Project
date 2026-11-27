@@ -4,12 +4,13 @@ import com.adobe.star.core.models.AuthorBooks;
 import com.adobe.star.core.models.helper.MultifieldBooksHelperBean;
 import com.adobe.star.core.models.helper.NestedCopiesHelperBean;
 import com.adobe.star.core.models.helper.PublishDetailsHelperBean;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.sling.api.SlingHttpServletRequest;
 
 import org.apache.sling.api.resource.Resource;
-import org.apache.sling.models.annotations.DefaultInjectionStrategy;
-import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.Via;
+import org.apache.sling.models.annotations.*;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
@@ -20,7 +21,12 @@ import java.util.*;
 
 @Model(adaptables = SlingHttpServletRequest.class,
         adapters = AuthorBooks.class,
+        resourceType = "star/components/authorBooks",
         defaultInjectionStrategy= DefaultInjectionStrategy.OPTIONAL)
+
+@Exporter(name="jackson", extensions="json", selector="custom",
+            options={@ExporterOption(name= "SerializationFeature.WRAP_ROOT_VALUE", value="true")})
+@JsonRootName("Author Books")
 public class AuthorBooksImpl implements AuthorBooks {
 
     private static final Logger LOG = LoggerFactory.getLogger(AuthorBooksImpl.class);
@@ -46,6 +52,7 @@ public class AuthorBooksImpl implements AuthorBooks {
     }
 
     @Override
+    @JsonProperty(value="Book Details")
     public List<Map<String, String>> getBookDetails() {
         List<Map<String, String>> bookDetailsListMap = new ArrayList<>();
         try{
@@ -66,6 +73,8 @@ public class AuthorBooksImpl implements AuthorBooks {
         return bookDetailsListMap;
     }
 
+    @Override
+    @JsonProperty(value="Publishing Details")
     public List<PublishDetailsHelperBean> getPublishingDetails(){
         List<PublishDetailsHelperBean> publishDetailsList = new ArrayList<>();
         try{
@@ -85,10 +94,11 @@ public class AuthorBooksImpl implements AuthorBooks {
     }
 
     @Override
+    @JsonProperty(value="Book_History")
     public List<MultifieldBooksHelperBean> getBookHistory() {
         List<MultifieldBooksHelperBean> bookHistory = new ArrayList<>();
         try{
-            Resource bookHistoryResources = componentResource.getChild("books");
+            Resource bookHistoryResources = componentResource.getChild("booklist");
             if(bookHistoryResources != null){
                 for(Resource bookHistoryResource : bookHistoryResources.getChildren())
                 {
